@@ -1,0 +1,6 @@
+{
+  "name": "Crypto Intel V3",
+  "description": "A professional-grade real-time Bloomberg Terminal-style cryptocurrency intelligence and algorithmic regime detection platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
