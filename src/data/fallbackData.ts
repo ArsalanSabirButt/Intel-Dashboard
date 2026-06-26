@@ -1,5 +1,58 @@
 import { DashboardData } from "../types";
 
+const rawAssets = [
+  { id: "bitcoin", rank: 1, symbol: "BTC", name: "Bitcoin", price: 64250, change24h: 1.85, volume24h: 28450000000, marketCap: 1260000000000, valToCap: 0.0225 },
+  { id: "ethereum", rank: 2, symbol: "ETH", name: "Ethereum", price: 3480, change24h: 3.12, volume24h: 17210000000, marketCap: 418000000000, valToCap: 0.0411 },
+  { id: "tether", rank: 3, symbol: "USDT", name: "Tether", price: 1.00, change24h: 0.02, volume24h: 45100000000, marketCap: 112500000000, valToCap: 0.4009 },
+  { id: "binancecoin", rank: 4, symbol: "BNB", name: "BNB", price: 578.40, change24h: 1.12, volume24h: 1450000000, marketCap: 84500000000, valToCap: 0.0171 },
+  { id: "solana", rank: 5, symbol: "SOL", name: "Solana", price: 148.50, change24h: 5.45, volume24h: 3450000000, marketCap: 68600000000, valToCap: 0.0502 },
+  { id: "ripple", rank: 6, symbol: "XRP", name: "Ripple", price: 0.4950, change24h: 0.25, volume24h: 980000000, marketCap: 27500000000, valToCap: 0.0356 },
+  { id: "usd-coin", rank: 7, symbol: "USDC", name: "USD Coin", price: 1.00, change24h: -0.01, volume24h: 6200000000, marketCap: 32800000000, valToCap: 0.1890 },
+  { id: "cardano", rank: 8, symbol: "ADA", name: "Cardano", price: 0.3850, change24h: -0.65, volume24h: 280000000, marketCap: 13700000000, valToCap: 0.0204 },
+  { id: "dogecoin", rank: 9, symbol: "DOGE", name: "Dogecoin", price: 0.1240, change24h: -1.55, volume24h: 1120000000, marketCap: 18000000000, valToCap: 0.0622 },
+  { id: "shiba-inu", rank: 10, symbol: "SHIB", name: "Shiba Inu", price: 0.00001780, change24h: -2.34, volume24h: 420000000, marketCap: 10500000000, valToCap: 0.0400 },
+  { id: "toncoin", rank: 11, symbol: "TON", name: "Toncoin", price: 7.25, change24h: 4.85, volume24h: 350000000, marketCap: 17900000000, valToCap: 0.0195 },
+  { id: "avalanche-2", rank: 12, symbol: "AVAX", name: "Avalanche", price: 28.40, change24h: 2.15, volume24h: 310000000, marketCap: 11100000000, valToCap: 0.0279 },
+  { id: "polkadot", rank: 13, symbol: "DOT", name: "Polkadot", price: 6.25, change24h: -0.85, volume24h: 180000000, marketCap: 8900000000, valToCap: 0.0202 },
+  { id: "chainlink", rank: 14, symbol: "LINK", name: "Chainlink", price: 14.20, change24h: 1.85, volume24h: 340000000, marketCap: 8300000000, valToCap: 0.0409 },
+  { id: "tron", rank: 15, symbol: "TRX", name: "TRON", price: 0.1220, change24h: 0.45, volume24h: 290000000, marketCap: 10600000000, valToCap: 0.0273 },
+  { id: "bitcoin-cash", rank: 16, symbol: "BCH", name: "Bitcoin Cash", price: 385.00, change24h: 0.95, volume24h: 240000000, marketCap: 7600000000, valToCap: 0.0315 },
+  { id: "near", rank: 17, symbol: "NEAR", name: "Near Protocol", price: 5.20, change24h: 3.85, volume24h: 290000000, marketCap: 5600000000, valToCap: 0.0517 },
+  { id: "polygon", rank: 18, symbol: "MATIC", name: "Polygon", price: 0.58, change24h: -1.25, volume24h: 210000000, marketCap: 5700000000, valToCap: 0.0368 },
+  { id: "litecoin", rank: 19, symbol: "LTC", name: "Litecoin", price: 74.50, change24h: 0.15, volume24h: 310000000, marketCap: 5500000000, valToCap: 0.0563 },
+  { id: "pepe", rank: 20, symbol: "PEPE", name: "Pepe", price: 0.00001220, change24h: 8.45, volume24h: 980000000, marketCap: 5100000000, valToCap: 0.1921 },
+  { id: "uniswap", rank: 21, symbol: "UNI", name: "Uniswap", price: 7.85, change24h: 2.35, volume24h: 170000000, marketCap: 4700000000, valToCap: 0.0361 },
+  { id: "aptos", rank: 22, symbol: "APT", name: "Aptos", price: 6.95, change24h: -1.85, volume24h: 120000000, marketCap: 3100000000, valToCap: 0.0387 },
+  { id: "internet-computer", rank: 23, symbol: "ICP", name: "Internet Computer", price: 8.25, change24h: -0.55, volume24h: 95000000, marketCap: 3800000000, valToCap: 0.0250 },
+  { id: "hedera-hashgraph", rank: 24, symbol: "HBAR", name: "Hedera", price: 0.078, change24h: 1.25, volume24h: 65000000, marketCap: 2800000000, valToCap: 0.0232 },
+  { id: "stellar", rank: 25, symbol: "XLM", name: "Stellar", price: 0.095, change24h: -0.15, volume24h: 75000000, marketCap: 2700000000, valToCap: 0.0277 },
+  { id: "cosmos", rank: 26, symbol: "ATOM", name: "Cosmos", price: 6.85, change24h: 0.45, volume24h: 130000000, marketCap: 2600000000, valToCap: 0.0500 },
+  { id: "ethereum-classic", rank: 27, symbol: "ETC", name: "Ethereum Classic", price: 23.40, change24h: -1.15, volume24h: 140000000, marketCap: 3400000000, valToCap: 0.0411 },
+  { id: "render-token", rank: 28, symbol: "RNDR", name: "Render", price: 7.85, change24h: 6.25, volume24h: 210000000, marketCap: 3000000000, valToCap: 0.0700 },
+  { id: "filecoin", rank: 29, symbol: "FIL", name: "Filecoin", price: 4.45, change24h: -2.15, volume24h: 110000000, marketCap: 2400000000, valToCap: 0.0458 },
+  { id: "the-graph", rank: 30, symbol: "GRT", name: "The Graph", price: 0.185, change24h: 3.15, volume24h: 85000000, marketCap: 1700000000, valToCap: 0.0500 },
+  { id: "maker", rank: 31, symbol: "MKR", name: "Maker", price: 2150.00, change24h: -1.25, volume24h: 88500000, marketCap: 1980000000, valToCap: 0.0447 },
+  { id: "lido-dao", rank: 32, symbol: "LDO", name: "Lido DAO", price: 1.85, change24h: 2.45, volume24h: 95000000, marketCap: 1600000000, valToCap: 0.0593 },
+  { id: "optimism", rank: 33, symbol: "OP", name: "Optimism", price: 1.95, change24h: 1.15, volume24h: 120000000, marketCap: 2100000000, valToCap: 0.0571 },
+  { id: "arbitrum", rank: 34, symbol: "ARB", name: "Arbitrum", price: 0.82, change24h: -2.45, volume24h: 160000000, marketCap: 2300000000, valToCap: 0.0695 },
+  { id: "immutable-x", rank: 35, symbol: "IMX", name: "Immutable", price: 1.45, change24h: 0.75, volume24h: 55000000, marketCap: 2100000000, valToCap: 0.0261 },
+  { id: "sui", rank: 36, symbol: "SUI", name: "Sui", price: 0.88, change24h: 4.15, volume24h: 180000000, marketCap: 2100000000, valToCap: 0.0857 },
+  { id: "vechain", rank: 37, symbol: "VET", name: "VeChain", price: 0.024, change24h: -0.95, volume24h: 45000000, marketCap: 1900000000, valToCap: 0.0236 },
+  { id: "fantom", rank: 38, symbol: "FTM", name: "Fantom", price: 0.58, change24h: 3.85, volume24h: 115000000, marketCap: 1600000000, valToCap: 0.0718 },
+  { id: "theta-token", rank: 39, symbol: "THETA", name: "Theta", price: 1.35, change24h: 0.25, volume24h: 35000000, marketCap: 1300000000, valToCap: 0.0269 },
+  { id: "thorchain", rank: 40, symbol: "RUNE", name: "THORChain", price: 4.15, change24h: 1.85, volume24h: 95000000, marketCap: 1400000000, valToCap: 0.0678 },
+  { id: "injective-protocol", rank: 41, symbol: "INJ", name: "Injective", price: 21.40, change24h: 2.15, volume24h: 85000000, marketCap: 2000000000, valToCap: 0.0425 },
+  { id: "terra-luna", rank: 42, symbol: "LUNC", name: "Terra Classic", price: 0.000085, change24h: -5.15, volume24h: 55000000, marketCap: 500000000, valToCap: 0.1100 },
+  { id: "celestia", rank: 43, symbol: "TIA", name: "Celestia", price: 6.25, change24h: 5.45, volume24h: 110000000, marketCap: 1200000000, valToCap: 0.0916 },
+  { id: "algorand", rank: 44, symbol: "ALGO", name: "Algorand", price: 0.135, change24h: -0.45, volume24h: 42000000, marketCap: 1100000000, valToCap: 0.0311 },
+  { id: "sei-network", rank: 45, symbol: "SEI", name: "Sei", price: 0.35, change24h: 4.25, volume24h: 75000000, marketCap: 1000000000, valToCap: 0.0750 },
+  { id: "flow", rank: 46, symbol: "FLOW", name: "Flow", price: 0.62, change24h: 0.15, volume24h: 22000000, marketCap: 900000000, valToCap: 0.0244 },
+  { id: "the-sandbox", rank: 47, symbol: "SAND", name: "The Sandbox", price: 0.32, change24h: -1.85, volume24h: 52000000, marketCap: 700000000, valToCap: 0.0742 },
+  { id: "decentraland", rank: 48, symbol: "MANA", name: "Decentraland", price: 0.34, change24h: -1.45, volume24h: 48000000, marketCap: 600000000, valToCap: 0.0800 },
+  { id: "aave", rank: 49, symbol: "AAVE", name: "Aave", price: 84.50, change24h: 1.95, volume24h: 90000000, marketCap: 1200000000, valToCap: 0.0750 },
+  { id: "dogwifhat", rank: 50, symbol: "WIF", name: "dogwifhat", price: 2.15, change24h: 12.45, volume24h: 380000000, marketCap: 2100000000, valToCap: 0.1809 }
+];
+
 export const FALLBACK_DASHBOARD_DATA: DashboardData = {
   timeSynced: new Date().toISOString(),
   pairs: [
@@ -8,11 +61,11 @@ export const FALLBACK_DASHBOARD_DATA: DashboardData = {
     { symbol: "BTC.D", name: "BTC Dominance", price: 54.2, change24h: -0.45, low30d: 51.5, high30d: 55.6, category: "dominance" },
     { symbol: "USDT.D", name: "USDT Dominance", price: 5.65, change24h: -1.22, low30d: 5.1, high30d: 6.8, category: "dominance" },
     { symbol: "USDC.D", name: "USDC Dominance", price: 2.15, change24h: -0.85, low30d: 1.9, high30d: 2.5, category: "dominance" },
-    { symbol: "TOTAL_MC", name: "Total Crypto Market Cap", price: 2.45, change24h: 1.95, low30d: 2.15, high30d: 2.65, category: "market_cap" }, // Trillion USD
-    { symbol: "BTC_MC", name: "BTC Market Cap", price: 1.26, change24h: 1.52, low30d: 1.15, high30d: 1.35, category: "market_cap" }, // Trillion USD
+    { symbol: "TOTAL_MC", name: "Total Crypto Market Cap", price: 2.45, change24h: 1.95, low30d: 2.15, high30d: 2.65, category: "market_cap" },
+    { symbol: "BTC_MC", name: "BTC Market Cap", price: 1.26, change24h: 1.52, low30d: 1.15, high30d: 1.35, category: "market_cap" },
     { symbol: "ALT_BTC", name: "Alts / BTC Ratio", price: 0.054, change24h: 1.25, low30d: 0.048, high30d: 0.058, category: "market_cap" },
-    { symbol: "ALT_MC", name: "Altcoin Market Cap", price: 1.19, change24h: 2.41, low30d: 1.02, high30d: 1.30, category: "market_cap" }, // Trillion USD
-    { symbol: "M2", name: "US M2 Money Stock", price: 21.05, change24h: 0.04, low30d: 20.6, high30d: 21.3, category: "macro" }, // Trillion USD
+    { symbol: "ALT_MC", name: "Altcoin Market Cap", price: 1.19, change24h: 2.41, low30d: 1.02, high30d: 1.30, category: "market_cap" },
+    { symbol: "M2", name: "US M2 Money Stock", price: 21.05, change24h: 0.04, low30d: 20.6, high30d: 21.3, category: "macro" },
     { symbol: "DXY", name: "US Dollar Index", price: 104.45, change24h: -0.18, low30d: 102.8, high30d: 105.9, category: "macro" },
     { symbol: "GOLD", name: "Gold Price (oz)", price: 4187.33, change24h: 0.32, low30d: 3950, high30d: 4250, category: "macro" },
     { symbol: "SILVER", name: "Silver Price (oz)", price: 65.04, change24h: 0.95, low30d: 58.20, high30d: 69.40, category: "macro" },
@@ -29,128 +82,39 @@ export const FALLBACK_DASHBOARD_DATA: DashboardData = {
       { name: "Derivative Funding Heat", status: "NEUTRAL", weight: 25, reason: "Funding rates remain highly stable (~0.01% - 0.02%), pointing to an absence of dangerous spec retail foam." }
     ]
   },
-  topAssets: [
-    {
-      id: "bitcoin",
-      rank: 1,
-      symbol: "BTC",
-      name: "Bitcoin",
-      price: 64250,
-      change24h: 1.85,
-      volume24h: 28450000000,
-      marketCap: 1260000000000,
-      valToCap: 0.0225,
-      fdv: 1350000000000,
-      circulatingSupply: 19710000,
-      totalSupply: 19710000,
-      maxSupply: 21000000,
-      treasuryHoldings: 8450000000,
-      ath: 73750,
-      athDate: "2024-03-14 14:35 UTC",
-      atl: 65.5,
-      atlDate: "2013-07-05 06:12 UTC",
-      website: "https://bitcoin.org",
-      exchanges: ["Binance", "Coinbase", "Kraken", "OKX", "Bybit"],
+  topAssets: rawAssets.map((asset) => {
+    const exchanges = ["Binance", "Coinbase", "Kraken", "OKX", "Bybit", "HTX", "Gate.io"].slice(0, 3 + (asset.rank % 4));
+    const website = `https://${asset.id || asset.name.toLowerCase().replace(/\s+/g, "")}.org`;
+    const ath = asset.price * (1.5 + (asset.rank * 0.05));
+    const athDate = "2024-03-14 14:35 UTC";
+    const atl = asset.price * (0.001 + (1 / (asset.rank * 10)));
+    const atlDate = "2018-12-15 03:10 UTC";
+    const circulatingSupply = Math.round(asset.marketCap / asset.price);
+    const fdv = asset.price * (circulatingSupply * (1 + (asset.rank * 0.01)));
+
+    return {
+      ...asset,
+      fdv,
+      circulatingSupply,
+      totalSupply: circulatingSupply * 1.2,
+      maxSupply: circulatingSupply * 1.5,
+      treasuryHoldings: Math.round(asset.marketCap * 0.02),
+      ath,
+      athDate,
+      atl,
+      atlDate,
+      website,
+      exchanges,
       holders: [
-        { address: "bc1qgd9...ps8ea (MicroStrategy)", amount: 214400, valueUsd: 13775200000, percentage: 1.08, label: "Corporate Treasury" },
-        { address: "37XpUHfS...6rP7P (Whale)", amount: 115400, valueUsd: 7414450000, percentage: 0.58, label: "Individual Whale" },
-        { address: "1FeexV6b...4f98 (MtGox Era)", amount: 79950, valueUsd: 5136787500, percentage: 0.40, label: "Legacy Address" }
+        { address: `0x${asset.symbol.toLowerCase()}...wallet1`, amount: Math.round(circulatingSupply * 0.05), valueUsd: Math.round(asset.marketCap * 0.05), percentage: 5.0, label: "Protocol Reserve" },
+        { address: `0x${asset.symbol.toLowerCase()}...wallet2`, amount: Math.round(circulatingSupply * 0.03), valueUsd: Math.round(asset.marketCap * 0.03), percentage: 3.0, label: "Institutional Custody" },
+        { address: `0x${asset.symbol.toLowerCase()}...wallet3`, amount: Math.round(circulatingSupply * 0.01), valueUsd: Math.round(asset.marketCap * 0.01), percentage: 1.0, label: "Top Individual Whale" }
       ],
       unlocks: [
-        { date: "N/A", amount: "N/A", percentage: 100, description: "Fully circulating, mined rewards occur dynamically ~10 minutes per block." }
+        { date: "Continuous", amount: `${(Math.round(circulatingSupply * 0.001)).toLocaleString()} ${asset.symbol}`, percentage: 0.1, description: "Programmatic emissions and validator fee redistribution pools." }
       ]
-    },
-    {
-      id: "ethereum",
-      rank: 2,
-      symbol: "ETH",
-      name: "Ethereum",
-      price: 3480,
-      change24h: 3.12,
-      volume24h: 17210000000,
-      marketCap: 418000000000,
-      valToCap: 0.0411,
-      fdv: 418000000000,
-      circulatingSupply: 120150000,
-      totalSupply: 120150000,
-      maxSupply: 120150000,
-      treasuryHoldings: 4250000000,
-      ath: 4891,
-      athDate: "2021-11-16 08:35 UTC",
-      atl: 0.42,
-      atlDate: "2015-10-20 18:22 UTC",
-      website: "https://ethereum.org",
-      exchanges: ["Binance", "Coinbase", "Kraken", "OKX", "Bybit"],
-      holders: [
-        { address: "0x00000...00000 (Beacon Deposit)", amount: 32540000, valueUsd: 113239200000, percentage: 27.08, label: "Consensus Contract" },
-        { address: "0x7a250...f56e (Uniswap V2 Router)", amount: 482000, valueUsd: 1677360000, percentage: 0.40, label: "DEX Protocol Pool" },
-        { address: "0xAb580...3451d (Vitalik)", amount: 244000, valueUsd: 849120000, percentage: 0.20, label: "Founder Address" }
-      ],
-      unlocks: [
-        { date: "None", amount: "Staked Rewards", percentage: 27.08, description: "Dynamic programmatic inflation based on active consensus stakers. Fully unlocked." }
-      ]
-    },
-    {
-      id: "solana",
-      rank: 3,
-      symbol: "SOL",
-      name: "Solana",
-      price: 135.5,
-      change24h: 4.88,
-      volume24h: 3150000000,
-      marketCap: 62450000000,
-      valToCap: 0.0504,
-      fdv: 78500000000,
-      circulatingSupply: 461000000,
-      totalSupply: 578000000,
-      maxSupply: 578000000,
-      treasuryHoldings: 880000000,
-      ath: 260.06,
-      athDate: "2021-11-07 12:00 UTC",
-      atl: 0.50,
-      atlDate: "2020-05-11 11:15 UTC",
-      website: "https://solana.com",
-      exchanges: ["Binance", "Coinbase", "Bybit", "OKX", "Kraken"],
-      holders: [
-        { address: "Solana Foundation Core Custody", amount: 24500000, valueUsd: 3319750000, percentage: 5.31, label: "Protocol Treasury" },
-        { address: "FTX/Alameda Liquidating Multi-Sig", amount: 18200000, valueUsd: 2466100000, percentage: 3.95, label: "Bankruptcy Liquidator" },
-        { address: "System Staking Custody Pool", amount: 15400000, valueUsd: 2086700000, percentage: 3.34, label: "Institutional Custodian" }
-      ],
-      unlocks: [
-        { date: "Monthly", amount: "Alameda Unlock", percentage: 0.25, description: "Monthly unlocked assets distributed from remaining Alameda bankruptcy lockups." }
-      ]
-    },
-    {
-      id: "maker",
-      rank: 20,
-      symbol: "MKR",
-      name: "Maker",
-      price: 2150,
-      change24h: -1.25,
-      volume24h: 88500000,
-      marketCap: 1980000000,
-      valToCap: 0.0447,
-      fdv: 2150000000,
-      circulatingSupply: 920000,
-      totalSupply: 920000,
-      maxSupply: 1000000,
-      treasuryHoldings: 185000000,
-      ath: 6292,
-      athDate: "2021-05-03 14:00 UTC",
-      atl: 21.06,
-      atlDate: "2017-01-30 08:30 UTC",
-      website: "https://makerdao.com",
-      exchanges: ["Binance", "Coinbase", "OKX", "Kraken", "Gemini"],
-      holders: [
-        { address: "0x0A97...MakerDAOTreasury", amount: 84000, valueUsd: 180600000, percentage: 8.4, label: "Maker Governance lockbox" },
-        { address: "0x88f...MKRBurnModule", amount: 154000, valueUsd: 331100000, percentage: 15.4, label: "MKR Surplus Auction Burn Engine" },
-        { address: "0xcb...a8s3a (VC Group)", amount: 48000, valueUsd: 103200000, percentage: 4.8, label: "Andreesen Horowitz Custody Pool" }
-      ],
-      unlocks: [
-        { date: "Continuous", amount: "Smart-Burn-Engine", percentage: -0.15, description: "Surplus buffer burns MKR programmatically as protocol collateral revenue crosses surplus thresholds." }
-      ]
-    }
-  ],
+    };
+  }),
   derivatives: {
     fundingRates: [
       { symbol: "BTC/USDT", binance: 0.0125, bybit: 0.0150, okx: 0.0118, deribit: 0.0105 },
@@ -196,7 +160,6 @@ export const FALLBACK_DASHBOARD_DATA: DashboardData = {
       { address: "Bc1qPrime...98ef", label: "Coinbase Prime Hot", balance: 88410, change24h: -1200, timestamp: new Date().toISOString() },
       { address: "0x771Whale...fd01", label: "Uniswap Whales Core", balance: 34500, change24h: 420, timestamp: new Date().toISOString() }
     ],
-    // BTC Network Health & NVT fallback data
     nvtRatio: 58.4,
     activeAddresses24h: 942500,
     hashrateEh: 612.4,

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Type } from "@google/genai";
 import { DashboardData, AIBrainResult, RegimeResult } from "./src/types.js";
+import { FALLBACK_DASHBOARD_DATA } from "./src/data/fallbackData.js";
 
 // Ensure env variables are loaded
 dotenv.config();
@@ -29,7 +30,8 @@ if (apiKey && apiKey !== "MY_GEMINI_API_KEY") {
 }
 
 // In-Memory Global Mock/Real Cache Store
-let cacheData: DashboardData = {
+let cacheData: DashboardData = JSON.parse(JSON.stringify(FALLBACK_DASHBOARD_DATA));
+const UNUSED_OLD_CACHE = {
   timeSynced: new Date().toISOString(),
   pairs: [
     { symbol: "BTC/USDT", name: "Bitcoin", price: 64250, change24h: 1.85, low30d: 59120, high30d: 68900, category: "crypto" },
