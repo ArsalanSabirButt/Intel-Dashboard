@@ -122,7 +122,7 @@ export default function CoreMarkets({ data, onSelectChart, activeChart }: { data
   return (
     <div className="flex flex-col gap-6 w-full" id="core-markets-container">
       {/* FIRST MAIN CHILD IN DOM TREE: lower metrics section, ordered to last visually */}
-      <div className="w-full lg:max-w-[90%] mx-auto flex flex-col gap-6 order-last" id="metrics-and-explorer-wrapper">
+      <div className="w-full flex flex-col gap-6 order-last" id="metrics-and-explorer-wrapper">
         {/* COIN EXPLORER TABLE - FULL CONTAINER WIDTH */}
         <div className="w-full space-y-6 flex flex-col">
           {/* TABULAR EXPLORER FOR COINS */}
@@ -485,7 +485,7 @@ export default function CoreMarkets({ data, onSelectChart, activeChart }: { data
       </div>
 
       {/* SECOND MAIN CHILD IN DOM TREE: chart section wrapper, visually ordered to first/top */}
-      <div className="w-full lg:max-w-[90%] mx-auto order-first flex flex-col" id="chart-panel-wrapper">
+      <div className="w-full order-first flex flex-col" id="chart-panel-wrapper">
         <div className="bg-white border border-slate-200 rounded-xl p-5 h-[62vh] flex flex-col shadow-sm" id="chart-panel">
           <div className="flex justify-between items-center mb-2 px-1">
             <div className="flex items-center gap-2">

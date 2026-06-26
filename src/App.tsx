@@ -283,7 +283,7 @@ export default function App() {
         </aside>
 
         {/* PRIMARY ACTIVE GRID STAGE */}
-        <main className="flex-1 overflow-auto p-8 bg-slate-50" id="stage-frame">
+        <main className="flex-1 overflow-auto p-4 md:p-5 lg:p-6 bg-slate-50" id="stage-frame">
           {activeTab === 'core' && (
             <CoreMarkets 
               data={marketData} 
