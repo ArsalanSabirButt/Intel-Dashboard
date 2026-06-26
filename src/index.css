@@ -6,18 +6,158 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
-/* Custom Scrollbars to match professional light slate theme */
+/* Custom Scrollbars to match professional dark theme */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f8fafc;
+  background: #030712;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #1f2937;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #374151;
+}
+
+/* Global scale up for font size to make everything incredibly legible */
+html, body {
+  font-size: 110% !important; /* This scales everything globally */
+  background-color: #030712 !important;
+  color: #f3f4f6 !important;
+}
+
+/* Specific class scaling overrides for Tailwind under our app root */
+#app-root, #global-loading {
+  font-size: 1.1rem !important;
+}
+
+#app-root .text-\[10px\], 
+#app-root .text-\[9px\], 
+#app-root .text-\[8px\],
+#app-root .text-xs,
+#app-root .text-sm,
+#app-root .text-base,
+#app-root .text-lg,
+#app-root .text-xl,
+#app-root .text-2xl,
+#app-root .text-3xl {
+  line-height: 1.4 !important;
+}
+
+/* Scale text sizes upwards */
+#app-root .text-\[8px\], #app-root .text-\[9px\], #app-root .text-\[10px\] {
+  font-size: 0.85rem !important; /* was tiny, now ~13.5px */
+}
+#app-root .text-\[11px\] {
+  font-size: 0.9rem !important; /* was 11px, now ~14.4px */
+}
+#app-root .text-xs {
+  font-size: 0.95rem !important; /* was 12px, now ~15px */
+}
+#app-root .text-sm {
+  font-size: 1.05rem !important; /* was 14px, now ~17px */
+}
+#app-root .text-base {
+  font-size: 1.15rem !important; /* was 16px, now ~18.5px */
+}
+#app-root .text-lg {
+  font-size: 1.35rem !important; /* was 18px, now ~21px */
+}
+#app-root .text-xl {
+  font-size: 1.55rem !important; /* was 20px, now ~25px */
+}
+#app-root .text-2xl {
+  font-size: 1.85rem !important;
+}
+
+/* Theme conversions: Darkening light-mode backgrounds */
+#app-root, #global-loading, .bg-slate-50 {
+  background-color: #030712 !important; /* High contrast black/slate */
+}
+
+/* All default panels, cards, headers, containers */
+.bg-white, #workspace-header, .bg-slate-50\/40, .bg-indigo-50\/40, .bg-slate-50\/20, .bg-teal-50\/50, .bg-rose-50\/50 {
+  background-color: #0f172a !important; /* Slate 900 */
+}
+
+/* Table head, tags, active lists, tooltips, buttons */
+.bg-slate-100, .bg-slate-200\/60, .bg-slate-50\/80 {
+  background-color: #1e293b !important; /* Slate 800 */
+}
+
+/* High contrast text color overrides */
+.text-slate-800, .text-slate-700, .text-slate-900, .text-slate-950, .text-gray-900, .text-gray-800 {
+  color: #f3f4f6 !important; /* Legible off-white */
+}
+
+.text-slate-600, .text-slate-500, .text-slate-400, .text-gray-600, .text-gray-500 {
+  color: #cbd5e1 !important; /* Bright slate-300 */
+}
+
+.text-slate-300 {
+  color: #94a3b8 !important;
+}
+
+/* Borders conversion to highly visible high-contrast dark border */
+.border, .border-slate-200, .border-slate-100, .border-gray-200, .border-b, .border-t, .border-l, .border-r {
+  border-color: #1e293b !important; /* Slate 800 */
+}
+
+/* Select indicators and special inputs */
+input, select, textarea {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  border-color: #374151 !important;
+}
+
+/* Shadows and readability improvements */
+.shadow-sm, .shadow-md, .shadow-lg {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Specific component visual fixes for dark theme */
+.text-indigo-600, .text-indigo-700 {
+  color: #818cf8 !important; /* Vibrant Indigo Accent */
+}
+
+.bg-indigo-50 {
+  background-color: #1e1b4b !important; /* Dark Indigo BG */
+}
+
+.bg-indigo-100 {
+  background-color: #312e81 !important; /* Richer Dark Indigo BG */
+  color: #e0e7ff !important;
+}
+
+/* Sentiment bars, Fear and Greed and on-chain metrics visibility boost */
+.text-emerald-700, .text-emerald-600 {
+  color: #34d399 !important; /* Bright Emerald */
+}
+
+.bg-emerald-50, .bg-emerald-50\/20 {
+  background-color: #064e3b !important; /* Dark Green */
+}
+
+.text-rose-700, .text-rose-600 {
+  color: #f87171 !important; /* Bright Rose/Red */
+}
+
+.bg-rose-50, .bg-rose-50\/20 {
+  background-color: #4c0519 !important; /* Dark Red */
+}
+
+.text-amber-700, .text-amber-600 {
+  color: #fbbf24 !important; /* Bright Amber */
+}
+
+.bg-amber-50, .bg-amber-50\/20 {
+  background-color: #78350f !important; /* Dark Amber */
+}
+
+/* Fix active tabs */
+#workspace-sidebar .bg-indigo-600 {
+  background-color: #4f46e5 !important;
 }
