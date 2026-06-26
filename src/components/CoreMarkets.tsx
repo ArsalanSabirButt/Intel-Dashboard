@@ -106,17 +106,61 @@ export default function CoreMarkets({ data, onSelectChart, activeChart }: { data
            String(now.getHours()).padStart(2, '0') + ":" + String(now.getMinutes()).padStart(2, '0');
   };
 
-  const formatPrice = (val: number, symbol: string) => {
-    if (symbol === "ALT_BTC") {
-      return val.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 5 });
+  const formatFullCardValue = (val: number, symbol: string) => {
+    let prefix = "";
+    let suffix = "";
+    let formattedVal = "";
+
+    switch (symbol) {
+      case "BTC/USDT":
+      case "ETH/USDT":
+        prefix = "$";
+        formattedVal = val.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        break;
+      case "BTC.D":
+      case "USDT.D":
+      case "USDC.D":
+        suffix = "%";
+        formattedVal = val.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        break;
+      case "TOTAL_MC":
+      case "BTC_MC":
+      case "ALT_MC":
+      case "M2":
+        prefix = "$";
+        suffix = " T";
+        formattedVal = val.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        break;
+      case "ALT_BTC":
+        suffix = " BTC";
+        formattedVal = val.toLocaleString(undefined, { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+        break;
+      case "DXY":
+        formattedVal = val.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        break;
+      case "GOLD":
+        prefix = "$";
+        formattedVal = val.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        break;
+      case "SILVER":
+      case "OIL":
+        prefix = "$";
+        formattedVal = val.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        break;
+      case "SPX":
+        formattedVal = val.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        break;
+      default:
+        if (val < 1) {
+          formattedVal = val.toLocaleString(undefined, { minimumFractionDigits: 4 });
+        } else if (val >= 1000) {
+          formattedVal = val.toLocaleString(undefined, { maximumFractionDigits: 0 });
+        } else {
+          formattedVal = val.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
     }
-    if (val < 1) {
-      return val.toLocaleString(undefined, { minimumFractionDigits: 4 });
-    }
-    if (val >= 1000) {
-      return val.toLocaleString(undefined, { maximumFractionDigits: 0 });
-    }
-    return val.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    return `${prefix}${formattedVal}${suffix}`;
   };
 
   return (
@@ -603,7 +647,7 @@ export default function CoreMarkets({ data, onSelectChart, activeChart }: { data
                   {/* Row 2: Price */}
                   <div className="my-1.5">
                     <span className="text-sm font-black font-mono text-slate-800 leading-none">
-                      ${formatPrice(pair.price, pair.symbol)}
+                      {formatFullCardValue(pair.price, pair.symbol)}
                     </span>
                   </div>
 
@@ -611,12 +655,12 @@ export default function CoreMarkets({ data, onSelectChart, activeChart }: { data
                   <div className="space-y-0.5 border-t border-slate-100 pt-1.5 text-[9px] font-mono text-slate-500">
                     <div className="flex justify-between">
                       <span className="text-slate-400 select-none text-[8px]">30d Low:</span>
-                      <span className="text-slate-700 font-semibold">${formatPrice(pair.low30d, pair.symbol)}</span>
+                      <span className="text-slate-700 font-semibold">{formatFullCardValue(pair.low30d, pair.symbol)}</span>
                     </div>
                     <div className="flex flex-col">
                       <div className="flex justify-between">
                         <span className="text-slate-400 select-none text-[8px]">30d High:</span>
-                        <span className="text-slate-700 font-semibold">${formatPrice(pair.high30d, pair.symbol)}</span>
+                        <span className="text-slate-700 font-semibold">{formatFullCardValue(pair.high30d, pair.symbol)}</span>
                       </div>
                       <span className="text-[7.5px] text-slate-400 text-right leading-none scale-90 origin-right mt-0.5">{timestamp}</span>
                     </div>
